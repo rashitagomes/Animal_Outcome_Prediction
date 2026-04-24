@@ -1,16 +1,21 @@
-import streamlit as st
-import pandas as pd
 import pickle
+import streamlit as st
+import os
 
-# --------------------------
-# Load Model
-# --------------------------
-# Using a silent try-except to avoid red error boxes if the file is missing
-try:
-    with open('final_model.pkl', 'rb') as f:
-        model = pickle.load(f)
-except Exception as e:
-    st.error(f"Model load error: {e}")
+# ✅ ALWAYS define first
+model = None
+
+model_path = "final_model.pkl"
+
+if not os.path.exists(model_path):
+    st.warning("⚠ Model file not found")
+else:
+    try:
+        with open(model_path, "rb") as f:
+            model = pickle.load(f)
+        st.success("✅ Model loaded successfully")
+    except Exception as e:
+        st.error(f"❌ Error loading model: {e}")
 
 st.set_page_config(page_title="Outcome Prediction", layout="wide")
 
