@@ -9,8 +9,8 @@ import pickle
 try:
     with open('final_model.pkl', 'rb') as f:
         model = pickle.load(f)
-except:
-    model = None
+except Exception as e:
+    st.error(f"Model load error: {e}")
 
 st.set_page_config(page_title="Outcome Prediction", layout="wide")
 
